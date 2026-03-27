@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+# encoding: utf-8
+
+'''
+@author: Milos Subotic <milos.subotic.sm@gmail.com>
+@license: MIT
+
+'''
+
+###############################################################################
+
+import os
+import sys
+
+import glob
+import waflib
+
+###############################################################################
+
+one_file_programs = [
+	'test_gpio.c'
+]
+
+def options(opt):
+	opt.load('gcc gxx')
+
+	opt.add_option(
+		'--app',
+		dest = 'app',
+		default = None,
+		help = 'App to be run'
+	)
+
+def configure(cfg):
+	cfg.load('gcc gxx')
+
+	cfg.env.append_value('CXXFLAGS', '-std=c++11')
+	#cfg.env.append_value('LIB', 'pthread')
+	cfg.env.append_value('CXXFLAGS', '-g -rdynamic'.split()) # For debug.
+
+def build(bld):
+	for s in one_file_programs:
+		p, ext = os.path.splitext(s)
+		bld.program(
+			target = p,
+			source = s
+		)
+
+###############################################################################

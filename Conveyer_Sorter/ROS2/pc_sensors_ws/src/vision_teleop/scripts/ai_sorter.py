@@ -1,7 +1,7 @@
 
 
-
-model_pt_fn = 'potato_m.pt'
+model_pt_fn = 'yolo_s.pt'
+#model_pt_fn = 'apple_s.pt' #TODO After traning
 
 camera_or_video_path = 0
 
@@ -35,15 +35,16 @@ class Vision_Picker(Node):
 			1
 		)
 
-		all_agro = abspath(join(
-			get_package_share_directory('vision_teleop'),
-			'../../../../../../../../' #TODO
-		))
-		full_model_pt_fn = join(all_agro, model_pt_fn)
-		
-		self.get_logger().info(f'full_model_pt_fn = {full_model_pt_fn}')
-		
-		self.model = YOLO(full_model_pt_fn)
+		#all_agro = abspath(join(
+		#	get_package_share_directory('vision_teleop'),
+		#	'../../../../../../../../' #TODO do not add models to git
+		#))
+		#full_model_pt_fn = join(all_agro, model_pt_fn)
+		#
+		#self.get_logger().info(f'full_model_pt_fn = {full_model_pt_fn}')
+		#
+		#self.model = YOLO(full_model_pt_fn) #TODO After training
+		self.model = YOLO('yolov8n.pt')
 		
 		self.cap = cv2.VideoCapture(camera_or_video_path)
 
@@ -116,7 +117,7 @@ class Vision_Picker(Node):
 					)
 
 					if len(track_ids) >= 2:
-						# Target.
+						x, y, w, h = get_box(track_ids[2])
 						cv2.drawMarker(
 							annotated_frame,
 							marker_coord((x, y)),
@@ -130,7 +131,7 @@ class Vision_Picker(Node):
 						#TODO Do sorting according to the class
 						msg = String()
 						msg.data = 'left'
-						self.get_logger().info('Selecting ', left)
+						self.get_logger().info('Selecting ', msg.data)
 						self.select__pub.publish(msg)
 					
 				cv2.imshow("Selection", annotated_frame)
