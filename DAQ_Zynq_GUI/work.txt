@@ -1,0 +1,11 @@
+
+- Python calls julia
+- github
+	- https://github.com/zoran-grujic/FAP-TiePie
+		-T Try run it
+		-T Read code
+		-T Need to exchange TiePie scope with adc_lvds
+			- Or could be adc_pmod for a start
+	- https://github.com/zoran-grujic/EtalonPy
+		-T Need to be exchanged with dac_pmod
+	-T Recreate with Arduino DUE
