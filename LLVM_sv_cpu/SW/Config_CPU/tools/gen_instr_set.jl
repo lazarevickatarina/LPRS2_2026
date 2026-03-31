@@ -186,7 +186,7 @@ eval(types_expr)
 ###############################################################################
 
 #TODO linker script.
-push!(LOAD_PATH, joinpath(@__DIR__, "../out/"))
+push!(LOAD_PATH, joinpath(@__DIR__, "../config/"))
 using sv_cpu_cfg
 
 sections = Dict{String, Section}(

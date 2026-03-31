@@ -29,10 +29,10 @@ default: ${ASM}
 
 ${ISET_P} ${ASM}: ${GEN_ISET} ${ISET_DEF}
 	mkdir -p out
-	${GEN_ISET} --i-isd ${ISET_DEF} --o-asm ${ASM} --o-vhd ${ISET_P}
+	${GEN_ISET} --i-isd ${ISET_DEF} --o-asm ${ASM} --o-vhd ./out/instr_set.gen.vhd
 	sed -i -n '/^[ ]*#=.*=#$$/!p' ${ASM}
 	sed -i 's/#=.*=#//g' ${ASM}
-	cp ${ISET_P} out/
+	#cp ./out/instr_set.gen.vhd ${ISET_P}
 
 
 #TODO Integrate above.
